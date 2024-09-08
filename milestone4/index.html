@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main w-full">
+        <header>
+            <h1 class="header-title">n8x</h1>
+            <div class="header-nav">
+                <div>Github</div>
+                <div>LInkedIn</div>
+                <div>Contact us</div>
+            </div>
+        </header>
+        <section class="w-full h-screen" id="section-one">
+            <div class="inputsSection">
+                <h1 class="">
+                    Creating <b>Resume</b> <br> made <i>easier</i>
+                </h1>
+            </div>
+            <div class="actions">
+                <a id="viewResumeButton" class="">View
+                    Resume</a>
+                <a id="createResumeButton" href="#input-resume-data" class="">Create Resume</a>
+            </div>
+        </section>
+
+        <section id="input-resume-data">
+            <div class="inputSectionContainer">
+                <div class="inputElementsBox">
+                    <form action="" class="lg:p-12 p-3" id="createResumeForm">
+                        <fieldset>
+                            <legend>Personal Information:
+                            </legend>
+                            <input type="text" name="username" required placeholder="Your name">
+                            <input type="number" name="contact" required placeholder="Phone no.">
+                            <input type="email" name="email" required placeholder="Email">
+                            <input type="file" class="sm:hidden block" name="profileImage" id="imageInput"
+                                value="select an image">
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Objective:</legend>
+                            <textarea name="objective" required placeholder="Your objective for the resume"></textarea>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Skills:</legend>
+                            <input type="text" name="skill" id="addSkillsInp" placeholder="Add Skill">
+                            <span id="add-skills-btn">Add</span>
+                            <div class="skillsErrorBox"></div>
+                            <div id="skill-capsules-cont"></div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Experience:</legend>
+                            <input type="text" name="experience" id="addExpInp" class="" placeholder="Add Experience">
+                            <span id="add-exp-btn">Add</span>
+                            <div class="expErrorBox"></div>
+                            <div id="exp-capsules-cont"></div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Education:</legend>
+                            <input type="text" name="education" id="addEduInp" class="" placeholder="Add Education">
+                            <span id="add-edu-btn">Add</span>
+                            <div class="eduErrorBox"></div>
+                            <div id="edu-capsules-cont"></div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Summary:</legend>
+                            <textarea name="summary" required placeholder="Summarize your approach"></textarea>
+                        </fieldset>
+
+                        <input type="submit" value="Generate" class="generateBtn">
+                    </form>
+                </div>
+                <div class="profileAndInfoBar">
+                    <div id="imagePreview" class="inps-section-img-box">
+                        <img style="opacity: 0.4;"
+                            src="https://i.pinimg.com/736x/58/51/2e/58512eb4e598b5ea4e2414e3c115bef9.jpg" alt="">
+                    </div>
+                    <h1>Choose an image<br> (optional)</h1>
+                    <ul>
+                        <li>Generate resume once and you can print it later any time</li>
+                        <li>Regenrating resume with other input data will remove old data and new resume data will be
+                            stored to print</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div id="print-content">
+                <div id="editPreview">
+                    <div class="resume-intro">
+                        <div>
+                            <h1 id="print-username">Demo Username</h1>
+                            <div class="contact">
+                                <b>Contact:</b>
+                                <span id="print-contact">0000000000</span>
+                            </div>
+                            <div class="email">
+                                <b>Email:</b>
+                                <span id="print-email">your@email.com</span>
+                            </div>
+                        </div>
+                        <div class="imgBox" id="print-image-cont">
+                        </div>
+                    </div>
+                    <div style="padding: 12px;" class="resume-details">
+                        <div class="legend">
+                            <h2>Objective:</h2>
+                            <hr>
+                        </div>
+                        <p id="print-objective">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam dolorem, ipsum illum quas
+                            rem
+                            voluptate praesentium quia cumque quae ipsam atque corporis accusamus, nihil excepturi.
+                            Laboriosam
+                            autem labore a odio.
+                        </p>
+
+                        <div class="legend">
+                            <h2>Skills:</h2>
+                            <hr>
+                        </div>
+                        <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                            <ul id="print-skills-list">
+                                <li>skill1</li>
+                                <li>Frontend engineer</li>
+                                <li>Developer</li>
+                                <li>Backend dev</li>
+                            </ul>
+                        </div>
+
+                        <div class="legend">
+                            <h2>Experience:</h2>
+                            <hr>
+                        </div>
+                        <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                            <ul id="print-exp-list">
+                                <li>4 years of experience as a lean web developer at ibex.</li>
+                                <li>2 years of edititng experience using Adobe after effects</li>
+                                <li>your experiences goes here</li>
+                                <li>passionate in programming</li>
+                            </ul>
+                        </div>
+                        <div class="legend">
+                            <h2>Education:</h2>
+                            <hr>
+                        </div>
+                        <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                            <ul id="print-edu-list">
+                                <li>BS in etc from etc in year 2059</li>
+                                <li>Certification in Generative AI from GIAIC, year 2027</li>
+                                <li>Your education goes herer</li>
+                            </ul>
+                        </div>
+
+                        <div class="legend">
+                            <h2>Summary:</h2>
+                            <hr>
+                        </div>
+                        <p id="print-summary">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi cumque tempore vitae modi
+                            quidem cum
+                            eligendi quas. At tempore, repellat molestiae exercitationem eum cumque necessitatibus eius,
+                            itaque
+                            alias error nam?
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="editPrintBtnCont" class="hidden">
+                <div id="editResumeBtn">Edit</div>
+                <div id="printResumeBtn">Print</div>
+                <div id="createNewResumeBtn">Create New</div>
+            </div>
+        </section>
+    </div>
+    <script src="./app.js" type="module"></script>
+</body>
+
+</html>
