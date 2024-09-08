@@ -294,7 +294,7 @@ img {
 
 #editPreview {
     height: fit-content;
-    width: 60%;
+    width: 100%;
 }
 
 .resume-intro {
@@ -401,6 +401,9 @@ fieldset {
 
     .profileAndInfoBar {
         display: block;
+    }
+    #editPreview{
+        width: 60%;
     }
 }
 

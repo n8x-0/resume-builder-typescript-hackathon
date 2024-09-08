@@ -1,12 +1,9 @@
-<h1><a href="">Resume Builder</a></h1>
+<h1><a href="">Visit Resume Builder</a></h1>
 
-=====================================
-
-<h2>Resume Builder</h2>
+<h2>Overview</h2>
 
 Powered by cutting-edge technology and built for the GIAIC GenAI Program's <b>24-hour hackathon challenge</b>, this resume builder offers a seamless experience to create, edit, and download your professional resume effortlessly.
 
-=====================================
 
 <h2>Features</h2>
 
@@ -17,8 +14,6 @@ Powered by cutting-edge technology and built for the GIAIC GenAI Program's <b>24
     <li>Download Your Resume: Once you're satisfied with your resume, you can download it as a PDF and start applying for jobs right away!</li>
 </ul>
 
-=====================================
-
 <h2>How it works</h2>
 
 <ul>
@@ -27,8 +22,6 @@ Powered by cutting-edge technology and built for the GIAIC GenAI Program's <b>24
     <li>Save & Edit: Take advantage of our local storage feature to keep your resume safe and make edits whenever necessary.</li>
     <li>Download: Once you're happy with your resume, download it with one click and start your job search with confidence.</li>
 </ul>
-
-======================================
 
 <h3>Bugs to be fixed and future updates</h3>
 
