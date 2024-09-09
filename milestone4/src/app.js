@@ -1,6 +1,16 @@
 function select(x) {
     return document.querySelector(x);
 }
+const defaultResume = {
+    username: "Demo Username",
+    contact: "+9012569845645",
+    email: "your@mail.com",
+    objective: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam dolorem, ipsum illum quas rem voluptate praesentium.",
+    skills: ["Frontenf Engineer", "Teacher", "Example skills"],
+    experience: ["4 years of experience as a lean web developer at iBcd.", "2 years of edititng experience using Adobe after effects", "your experiences goes here"],
+    education: ["BS in etc in year 2059", "Cerification in GIAIC GenAI", "Your education goes here"],
+    summary: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi cumque tempore vitae modi quidem cum eligendi quas. At tempore."
+};
 const resumeForm = select('#createResumeForm');
 const addSkillsBtn = select('#add-skills-btn');
 const addExpBtn = select('#add-exp-btn');
@@ -9,6 +19,14 @@ let skillsArr = [];
 let experienceArr = [];
 let educationArr = [];
 const resumeStoredData = localStorage.getItem("currResumeData");
+if (resumeStoredData) {
+    select("#viewResumeButton").setAttribute("href", "#print-content");
+    select("#editNprintBtn-boxToHide").style.display = 'block';
+}
+else {
+    select("#viewResumeButton").setAttribute("href", "#input-resume-data");
+    select("#editNprintBtn-boxToHide").style.display = 'none';
+}
 addSkillsBtn.onclick = () => addCapsuleData("#addSkillsInp", skillsArr, "#skill-capsules-cont", ".skillsErrorBox");
 addExpBtn.onclick = () => addCapsuleData('#addExpInp', experienceArr, "#exp-capsules-cont", ".expErrorBox");
 addEduBtn.onclick = () => addCapsuleData('#addEduInp', educationArr, "#edu-capsules-cont", ".eduErrorBox");
@@ -35,7 +53,7 @@ const updateCapsuleDisplay = (arr, showToElem) => {
                       <i class="fa-solid fa-trash" style="color: #f0f5ff; padding-left:6px" data-index="${index}"></i>
                     </span>`;
     });
-    select(showToElem).innerHTML = clutter;
+    select(showToElem).innerHTML = `${clutter}<div class="capsule-faded-bottom"></div>`;
 };
 document.addEventListener('click', (e) => {
     const target = e.target;
@@ -91,12 +109,12 @@ resumeForm.onsubmit = (e) => {
         education: educationArr,
         summary: summary.value
     };
-    handleCvData(cvData);
     if (resumeStoredData) {
         localStorage.removeItem("currResumeData");
     }
     else {
         localStorage.setItem("currResumeData", JSON.stringify(cvData));
+        handleCvData(cvData);
     }
     [username, contact, email, objective, summary].forEach((field) => field.value = '');
     print();
@@ -108,7 +126,6 @@ const listAddHelper = (listOf, addTo) => {
     });
     select(addTo).innerHTML = clutter;
 };
-const editPrintBtnCont = select("#editPrintBtnCont");
 const handleCvData = (data) => {
     select("#print-username").innerText = data.username;
     select("#print-contact").innerText = data.contact;
@@ -118,30 +135,27 @@ const handleCvData = (data) => {
     listAddHelper(data.skills, "#print-skills-list");
     listAddHelper(data.experience, "#print-exp-list");
     listAddHelper(data.education, "#print-edu-list");
-    if (data) {
-        editPrintBtnCont.classList.remove('hidden');
-        const editResumeBtn = select('#editResumeBtn');
-        const printResumeBtn = select('#printResumeBtn');
-        editResumeBtn.onclick = () => {
-            select("#editPreview").setAttribute("contentEditable", "true");
-        };
-        printResumeBtn.onclick = () => {
-            print();
-            select("#editPreview").removeAttribute("contentEditable");
-        };
-    }
-};
-const createNewResumeBtn = select('#createNewResumeBtn');
-createNewResumeBtn.onclick = () => {
-    localStorage.removeItem("currResumeItem");
-    editPrintBtnCont.classList.add('hidden');
-    // window.location.href = '#input-resume-data';
 };
 if (resumeStoredData) {
-    select("#viewResumeButton").setAttribute("href", "#print-content");
     handleCvData(JSON.parse(resumeStoredData));
 }
 else {
-    select("#viewResumeButton").setAttribute("href", "#input-resume-data");
+    handleCvData(defaultResume);
 }
+const createNewResumeBtn = select('#createNewResumeBtn');
+const editResumeBtn = select('#editResumeBtn');
+const printResumeBtn = select('#printResumeBtn');
+editResumeBtn.onclick = () => {
+    select("#editPreview").setAttribute("contentEditable", "true");
+};
+printResumeBtn.onclick = () => {
+    print();
+    select("#editPreview").removeAttribute("contentEditable");
+};
+createNewResumeBtn.onclick = () => {
+    localStorage.removeItem("currResumeData");
+    select("#editNprintBtn-boxToHide").style.display = 'none';
+    handleCvData(defaultResume);
+    window.location.href = '#input-resume-data';
+};
 export {};
