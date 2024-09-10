@@ -35,8 +35,10 @@ let experienceArr: string[] = [];
 let educationArr: string[] = [];
 let createdResList: CVdata[] = [];
 
-const storedResArr: any = localStorage.getItem("createdResList");
-const storedResList = JSON.parse(storedResArr)
+const storedResArr = localStorage.getItem("createdResList");
+const storedResList = storedResArr ? JSON.parse(storedResArr) : [];
+console.log(storedResList);
+
 
 addSkillsBtn.onclick = () => addCapsuleData("#addSkillsInp", skillsArr, "#skill-capsules-cont", ".skillsErrorBox");
 addExpBtn.onclick = () => addCapsuleData('#addExpInp', experienceArr, "#exp-capsules-cont", ".expErrorBox");
@@ -154,14 +156,14 @@ resumeForm.onsubmit = (e: SubmitEvent) => {
         summary: summary.value
     };
 
-    if (storedResList.length !== 0) {
-        storedResList.push(cvData);
-        createdResList = storedResArr;
-        localStorage.setItem("createdResList", JSON.stringify(createdResList));
-        updateResumeList(storedResList, ".created-resume-list")
-    } else {
+    if (storedResList.length === 0) {
         createdResList.push(cvData)
         localStorage.setItem("createdResList", JSON.stringify(createdResList))
+    } else {
+        storedResList.push(cvData);
+        createdResList = storedResList;
+        localStorage.setItem("createdResList", JSON.stringify(createdResList));
+        updateResumeList(storedResList, ".created-resume-list")
     }
     handleCvData(cvData);
 
@@ -193,15 +195,15 @@ const handleCvData = (data: CVdata) => {
     listAddHelper(data.experience, "#print-exp-list");
     listAddHelper(data.education, "#print-edu-list");
 }
-if (storedResList.length !== 0) {
+if (storedResList.length === 0) {
+    select("#viewResumeButton").setAttribute("href", "#input-resume-data")
+    select("#editNprintBtn-boxToHide").style.display = 'none';
+    handleCvData(defaultResume)
+} else {
     select("#viewResumeButton").setAttribute("href", "#print-content");
     select("#editNprintBtn-boxToHide").style.display = 'block';
     handleCvData(storedResList[storedResList.length - 1]);
     updateResumeList(storedResList, ".created-resume-list")
-} else {
-    select("#viewResumeButton").setAttribute("href", "#input-resume-data")
-    select("#editNprintBtn-boxToHide").style.display = 'none';
-    handleCvData(defaultResume)
 }
 
 const createNewResumeBtn = select('#createNewResumeBtn');
