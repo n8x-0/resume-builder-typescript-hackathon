@@ -77,7 +77,7 @@ const updateCapsuleDisplay = (arr: string[], showToElem: string) => {
 const updateResumeList = (arr: CVdata[], showToElem: string) => {
     let clutter = '';
     arr.forEach((data, index) => {
-        clutter += `<div class="res-cards">
+        clutter += `<div class="res-cards" data-id=${data.id}>
                         <div>
                             <div class="imgBox"><img
                                     src="https://i.pinimg.com/736x/58/51/2e/58512eb4e598b5ea4e2414e3c115bef9.jpg"
@@ -90,8 +90,17 @@ const updateResumeList = (arr: CVdata[], showToElem: string) => {
     select(showToElem).innerHTML = clutter;
 }
 
+const listAddHelper = (listOf: string[], addTo: string) => {
+    let clutter = ``;
+    listOf.forEach((data) => {
+        clutter += `<li class="mx-6">${data}</li>`
+    })
+    select(addTo).innerHTML = clutter
+}
+
 document.addEventListener('click', (e: Event) => {
     const target = e.target as HTMLElement;
+
     if (target.classList.contains('fa-trash')) {
         const index = target.getAttribute('data-index');
         const showToElem = target.closest('div')?.getAttribute('id');
@@ -139,7 +148,16 @@ const handleUploadImage = (imgInp?: HTMLElement) => {
 }
 
 resumeForm.onsubmit = (e: SubmitEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    
+    if(storedResList.length >= 3){
+        select('.limit-error-box').style.display = 'block';
+        setTimeout(()=>{
+            select('.limit-error-box').style.display = 'none';
+        },2000)
+        return
+    }
+
     const form = e.target as HTMLFormElement;
     const { username, contact, email, objective, summary } = form;
 
@@ -155,7 +173,7 @@ resumeForm.onsubmit = (e: SubmitEvent) => {
         education: educationArr,
         summary: summary.value
     };
-
+    
     if (storedResList.length === 0) {
         createdResList.push(cvData)
         localStorage.setItem("createdResList", JSON.stringify(createdResList))
@@ -167,7 +185,7 @@ resumeForm.onsubmit = (e: SubmitEvent) => {
     }
     handleCvData(cvData);
 
-    select("#editNprintBtn-boxToHide").style.display = 'block';
+    select("#editNprintBtn-boxToHide").style.display = 'flex';
     [username, contact, email, objective, summary].forEach((field: any) => field.value = '');
     select("#skill-capsules-cont").innerHTML = '';
     select("#exp-capsules-cont").innerHTML = '';
@@ -175,13 +193,6 @@ resumeForm.onsubmit = (e: SubmitEvent) => {
     print();
 }
 
-const listAddHelper = (listOf: string[], addTo: string) => {
-    let clutter = ``;
-    listOf.forEach((data) => {
-        clutter += `<li class="mx-6">${data}</li>`
-    })
-    select(addTo).innerHTML = clutter
-}
 
 const handleCvData = (data: CVdata) => {
 
@@ -195,13 +206,14 @@ const handleCvData = (data: CVdata) => {
     listAddHelper(data.experience, "#print-exp-list");
     listAddHelper(data.education, "#print-edu-list");
 }
+
 if (storedResList.length === 0) {
     select("#viewResumeButton").setAttribute("href", "#input-resume-data")
     select("#editNprintBtn-boxToHide").style.display = 'none';
     handleCvData(defaultResume)
 } else {
     select("#viewResumeButton").setAttribute("href", "#print-content");
-    select("#editNprintBtn-boxToHide").style.display = 'block';
+    select("#editNprintBtn-boxToHide").style.display = 'flex';
     handleCvData(storedResList[storedResList.length - 1]);
     updateResumeList(storedResList, ".created-resume-list")
 }
@@ -218,5 +230,20 @@ printResumeBtn.onclick = () => {
     select("#editPreview").removeAttribute("contentEditable")
 }
 createNewResumeBtn.onclick = () => {
+    if(storedResList.length >= 6){
+        select('.limit-error-box').style.display = 'block';
+        setTimeout(()=>{
+            select('.limit-error-box').style.display = 'none';
+        },2000)
+        return
+    }
     window.location.href = '#input-resume-data';
 }
+
+document.querySelectorAll(".res-cards").forEach((cards) => {
+    cards.addEventListener('click', () => {
+        const resID = cards.getAttribute("data-id")
+        const fileredResData = storedResList.find((data: CVdata) => data.id === resID);
+        handleCvData(fileredResData)
+    })
+})

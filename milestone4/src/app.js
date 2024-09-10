@@ -54,7 +54,7 @@ const updateCapsuleDisplay = (arr, showToElem) => {
 const updateResumeList = (arr, showToElem) => {
     let clutter = '';
     arr.forEach((data, index) => {
-        clutter += `<div class="res-cards">
+        clutter += `<div class="res-cards" data-id=${data.id}>
                         <div>
                             <div class="imgBox"><img
                                     src="https://i.pinimg.com/736x/58/51/2e/58512eb4e598b5ea4e2414e3c115bef9.jpg"
@@ -65,6 +65,13 @@ const updateResumeList = (arr, showToElem) => {
                     </div> `;
     });
     select(showToElem).innerHTML = clutter;
+};
+const listAddHelper = (listOf, addTo) => {
+    let clutter = ``;
+    listOf.forEach((data) => {
+        clutter += `<li class="mx-6">${data}</li>`;
+    });
+    select(addTo).innerHTML = clutter;
 };
 document.addEventListener('click', (e) => {
     const target = e.target;
@@ -114,6 +121,13 @@ const handleUploadImage = (imgInp) => {
 };
 resumeForm.onsubmit = (e) => {
     e.preventDefault();
+    if (storedResList.length >= 3) {
+        select('.limit-error-box').style.display = 'block';
+        setTimeout(() => {
+            select('.limit-error-box').style.display = 'none';
+        }, 2000);
+        return;
+    }
     const form = e.target;
     const { username, contact, email, objective, summary } = form;
     const uniqueID = Math.floor(Date.now()).toString();
@@ -139,19 +153,12 @@ resumeForm.onsubmit = (e) => {
         updateResumeList(storedResList, ".created-resume-list");
     }
     handleCvData(cvData);
-    select("#editNprintBtn-boxToHide").style.display = 'block';
+    select("#editNprintBtn-boxToHide").style.display = 'flex';
     [username, contact, email, objective, summary].forEach((field) => field.value = '');
     select("#skill-capsules-cont").innerHTML = '';
     select("#exp-capsules-cont").innerHTML = '';
     select("#edu-capsules-cont").innerHTML = '';
     print();
-};
-const listAddHelper = (listOf, addTo) => {
-    let clutter = ``;
-    listOf.forEach((data) => {
-        clutter += `<li class="mx-6">${data}</li>`;
-    });
-    select(addTo).innerHTML = clutter;
 };
 const handleCvData = (data) => {
     select("#print-username").innerText = data.username;
@@ -170,7 +177,7 @@ if (storedResList.length === 0) {
 }
 else {
     select("#viewResumeButton").setAttribute("href", "#print-content");
-    select("#editNprintBtn-boxToHide").style.display = 'block';
+    select("#editNprintBtn-boxToHide").style.display = 'flex';
     handleCvData(storedResList[storedResList.length - 1]);
     updateResumeList(storedResList, ".created-resume-list");
 }
@@ -185,6 +192,20 @@ printResumeBtn.onclick = () => {
     select("#editPreview").removeAttribute("contentEditable");
 };
 createNewResumeBtn.onclick = () => {
+    if (storedResList.length >= 6) {
+        select('.limit-error-box').style.display = 'block';
+        setTimeout(() => {
+            select('.limit-error-box').style.display = 'none';
+        }, 2000);
+        return;
+    }
     window.location.href = '#input-resume-data';
 };
+document.querySelectorAll(".res-cards").forEach((cards) => {
+    cards.addEventListener('click', () => {
+        const resID = cards.getAttribute("data-id");
+        const fileredResData = storedResList.find((data) => data.id === resID);
+        handleCvData(fileredResData);
+    });
+});
 export {};
