@@ -2,6 +2,7 @@ function select(x) {
     return document.querySelector(x);
 }
 const defaultResume = {
+    id: '',
     username: "Demo Username",
     contact: "+9012569845645",
     email: "your@mail.com",
@@ -18,26 +19,20 @@ const addEduBtn = select('#add-edu-btn');
 let skillsArr = [];
 let experienceArr = [];
 let educationArr = [];
-const resumeStoredData = localStorage.getItem("currResumeData");
-if (resumeStoredData) {
-    select("#viewResumeButton").setAttribute("href", "#print-content");
-    select("#editNprintBtn-boxToHide").style.display = 'block';
-}
-else {
-    select("#viewResumeButton").setAttribute("href", "#input-resume-data");
-    select("#editNprintBtn-boxToHide").style.display = 'none';
-}
+let createdResList = [];
+const storedResArr = localStorage.getItem("createdResList");
+const storedResList = JSON.parse(storedResArr);
 addSkillsBtn.onclick = () => addCapsuleData("#addSkillsInp", skillsArr, "#skill-capsules-cont", ".skillsErrorBox");
 addExpBtn.onclick = () => addCapsuleData('#addExpInp', experienceArr, "#exp-capsules-cont", ".expErrorBox");
 addEduBtn.onclick = () => addCapsuleData('#addEduInp', educationArr, "#edu-capsules-cont", ".eduErrorBox");
 const addCapsuleData = (inpElem, arr, showToElem, errorBox) => {
     const elem = select(inpElem);
     if (elem.value === '') {
-        select(errorBox).innerHTML = `<p class="text-red-500">Field is empty*</p>`;
+        select(errorBox).innerHTML = `<p style="color: red">Field is empty*</p>`;
         return;
     }
     if (arr.length > 9) {
-        select(errorBox).innerHTML = `<p class="text-red-500">Maximum limit is 10*</p>`;
+        select(errorBox).innerHTML = `<p style="color: red">Maximum limit is 10*</p>`;
         return;
     }
     select(errorBox).innerHTML = '';
@@ -55,6 +50,21 @@ const updateCapsuleDisplay = (arr, showToElem) => {
     });
     select(showToElem).innerHTML = `${clutter}<div class="capsule-faded-bottom"></div>`;
 };
+const updateResumeList = (arr, showToElem) => {
+    let clutter = '';
+    arr.forEach((data, index) => {
+        clutter += `<div class="res-cards">
+                        <div>
+                            <div class="imgBox"><img
+                                    src="https://i.pinimg.com/736x/58/51/2e/58512eb4e598b5ea4e2414e3c115bef9.jpg"
+                                    alt=""></div>
+                            <p>${data.username}</p>
+                        </div>
+                        <i class="fa-solid fa-trash" style="color: #3b82f6; padding-left:6px" data-index="${index}"></i>
+                    </div> `;
+    });
+    select(showToElem).innerHTML = clutter;
+};
 document.addEventListener('click', (e) => {
     const target = e.target;
     if (target.classList.contains('fa-trash')) {
@@ -71,6 +81,12 @@ document.addEventListener('click', (e) => {
         else if (showToElem === 'edu-capsules-cont') {
             educationArr.splice(Number(index), 1);
             updateCapsuleDisplay(educationArr, `#${showToElem}`);
+        }
+        else if (target.closest('.created-resume-list')) {
+            storedResList.splice(Number(index), 1);
+            createdResList = storedResList;
+            localStorage.setItem("createdResList", JSON.stringify(createdResList));
+            updateResumeList(storedResList, `.created-resume-list`);
         }
     }
 });
@@ -99,7 +115,9 @@ resumeForm.onsubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const { username, contact, email, objective, summary } = form;
+    const uniqueID = Math.floor(Date.now()).toString();
     const cvData = {
+        id: uniqueID,
         username: username.value,
         contact: contact.value,
         email: email.value,
@@ -109,14 +127,22 @@ resumeForm.onsubmit = (e) => {
         education: educationArr,
         summary: summary.value
     };
-    if (resumeStoredData) {
-        localStorage.removeItem("currResumeData");
+    if (storedResList.length !== 0) {
+        storedResList.push(cvData);
+        createdResList = storedResArr;
+        localStorage.setItem("createdResList", JSON.stringify(createdResList));
+        updateResumeList(storedResList, ".created-resume-list");
     }
     else {
-        localStorage.setItem("currResumeData", JSON.stringify(cvData));
-        handleCvData(cvData);
+        createdResList.push(cvData);
+        localStorage.setItem("createdResList", JSON.stringify(createdResList));
     }
+    handleCvData(cvData);
+    select("#editNprintBtn-boxToHide").style.display = 'block';
     [username, contact, email, objective, summary].forEach((field) => field.value = '');
+    select("#skill-capsules-cont").innerHTML = '';
+    select("#exp-capsules-cont").innerHTML = '';
+    select("#edu-capsules-cont").innerHTML = '';
     print();
 };
 const listAddHelper = (listOf, addTo) => {
@@ -136,10 +162,15 @@ const handleCvData = (data) => {
     listAddHelper(data.experience, "#print-exp-list");
     listAddHelper(data.education, "#print-edu-list");
 };
-if (resumeStoredData) {
-    handleCvData(JSON.parse(resumeStoredData));
+if (storedResList.length !== 0) {
+    select("#viewResumeButton").setAttribute("href", "#print-content");
+    select("#editNprintBtn-boxToHide").style.display = 'block';
+    handleCvData(storedResList[storedResList.length - 1]);
+    updateResumeList(storedResList, ".created-resume-list");
 }
 else {
+    select("#viewResumeButton").setAttribute("href", "#input-resume-data");
+    select("#editNprintBtn-boxToHide").style.display = 'none';
     handleCvData(defaultResume);
 }
 const createNewResumeBtn = select('#createNewResumeBtn');
@@ -153,9 +184,6 @@ printResumeBtn.onclick = () => {
     select("#editPreview").removeAttribute("contentEditable");
 };
 createNewResumeBtn.onclick = () => {
-    localStorage.removeItem("currResumeData");
-    select("#editNprintBtn-boxToHide").style.display = 'none';
-    handleCvData(defaultResume);
     window.location.href = '#input-resume-data';
 };
 export {};
