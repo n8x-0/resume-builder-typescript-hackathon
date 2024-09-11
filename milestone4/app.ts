@@ -13,6 +13,7 @@ interface CVdata {
     education: string[],
     summary: string
 }
+
 const defaultResume: CVdata = {
     id: '',
     username: "Demo Username",
@@ -25,6 +26,7 @@ const defaultResume: CVdata = {
     summary: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi cumque tempore vitae modi quidem cum eligendi quas. At tempore."
 }
 
+let isTogglerOpen = false;
 const resumeForm = select('#createResumeForm')
 const addSkillsBtn = select('#add-skills-btn');
 const addExpBtn = select('#add-exp-btn');
@@ -149,12 +151,12 @@ const handleUploadImage = (imgInp?: HTMLElement) => {
 
 resumeForm.onsubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    
-    if(storedResList.length >= 3){
+
+    if (storedResList.length >= 6) {
         select('.limit-error-box').style.display = 'block';
-        setTimeout(()=>{
+        setTimeout(() => {
             select('.limit-error-box').style.display = 'none';
-        },2000)
+        }, 2000)
         return
     }
 
@@ -173,7 +175,7 @@ resumeForm.onsubmit = (e: SubmitEvent) => {
         education: educationArr,
         summary: summary.value
     };
-    
+
     if (storedResList.length === 0) {
         createdResList.push(cvData)
         localStorage.setItem("createdResList", JSON.stringify(createdResList))
@@ -185,6 +187,7 @@ resumeForm.onsubmit = (e: SubmitEvent) => {
     }
     handleCvData(cvData);
 
+    select(".resume-actionBar-toggle-forMobile").classList.add("notification");
     select("#editNprintBtn-boxToHide").style.display = 'flex';
     [username, contact, email, objective, summary].forEach((field: any) => field.value = '');
     select("#skill-capsules-cont").innerHTML = '';
@@ -230,20 +233,36 @@ printResumeBtn.onclick = () => {
     select("#editPreview").removeAttribute("contentEditable")
 }
 createNewResumeBtn.onclick = () => {
-    if(storedResList.length >= 6){
+    if (storedResList.length >= 6) {
         select('.limit-error-box').style.display = 'block';
-        setTimeout(()=>{
+        setTimeout(() => {
             select('.limit-error-box').style.display = 'none';
-        },2000)
+        }, 2000)
         return
     }
     window.location.href = '#input-resume-data';
 }
 
-document.querySelectorAll(".res-cards").forEach((cards) => {
-    cards.addEventListener('click', () => {
-        const resID = cards.getAttribute("data-id")
-        const fileredResData = storedResList.find((data: CVdata) => data.id === resID);
-        handleCvData(fileredResData)
-    })
-})
+select('.created-resume-list').addEventListener('click', (e: Event) => {
+    const target = e.target as HTMLElement;
+    const resumeCard = target.closest('.res-cards');
+
+    if (resumeCard) {
+        const resID = resumeCard.getAttribute("data-id");
+        const filteredResData = storedResList.find((data: CVdata) => data.id === resID);
+        if (filteredResData) {
+            handleCvData(filteredResData);
+        }
+    }
+});
+
+select(".resume-actionBar-toggle-forMobile").onclick = () => {
+    if(isTogglerOpen){
+        select(".resume-actions-bar").style.display = 'none';
+        isTogglerOpen = false;
+        return;
+    }
+    select(".resume-actions-bar").style.display = 'block';
+    select(".resume-actionBar-toggle-forMobile").classList.remove("notification"); 
+    isTogglerOpen = true;
+}

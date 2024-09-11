@@ -12,6 +12,7 @@ const defaultResume = {
     education: ["BS in etc in year 2059", "Cerification in GIAIC GenAI", "Your education goes here"],
     summary: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi cumque tempore vitae modi quidem cum eligendi quas. At tempore."
 };
+let isTogglerOpen = false;
 const resumeForm = select('#createResumeForm');
 const addSkillsBtn = select('#add-skills-btn');
 const addExpBtn = select('#add-exp-btn');
@@ -121,7 +122,7 @@ const handleUploadImage = (imgInp) => {
 };
 resumeForm.onsubmit = (e) => {
     e.preventDefault();
-    if (storedResList.length >= 3) {
+    if (storedResList.length >= 6) {
         select('.limit-error-box').style.display = 'block';
         setTimeout(() => {
             select('.limit-error-box').style.display = 'none';
@@ -153,6 +154,7 @@ resumeForm.onsubmit = (e) => {
         updateResumeList(storedResList, ".created-resume-list");
     }
     handleCvData(cvData);
+    select(".resume-actionBar-toggle-forMobile").classList.add("notification");
     select("#editNprintBtn-boxToHide").style.display = 'flex';
     [username, contact, email, objective, summary].forEach((field) => field.value = '');
     select("#skill-capsules-cont").innerHTML = '';
@@ -201,11 +203,25 @@ createNewResumeBtn.onclick = () => {
     }
     window.location.href = '#input-resume-data';
 };
-document.querySelectorAll(".res-cards").forEach((cards) => {
-    cards.addEventListener('click', () => {
-        const resID = cards.getAttribute("data-id");
-        const fileredResData = storedResList.find((data) => data.id === resID);
-        handleCvData(fileredResData);
-    });
+select('.created-resume-list').addEventListener('click', (e) => {
+    const target = e.target;
+    const resumeCard = target.closest('.res-cards');
+    if (resumeCard) {
+        const resID = resumeCard.getAttribute("data-id");
+        const filteredResData = storedResList.find((data) => data.id === resID);
+        if (filteredResData) {
+            handleCvData(filteredResData);
+        }
+    }
 });
+select(".resume-actionBar-toggle-forMobile").onclick = () => {
+    if (isTogglerOpen) {
+        select(".resume-actions-bar").style.display = 'none';
+        isTogglerOpen = false;
+        return;
+    }
+    select(".resume-actions-bar").style.display = 'block';
+    select(".resume-actionBar-toggle-forMobile").classList.remove("notification");
+    isTogglerOpen = true;
+};
 export {};

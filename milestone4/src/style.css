@@ -103,7 +103,8 @@ header {
 section {
     position: relative;
 }
-.section-one{
+
+.section-one {
     width: 100%;
     height: 100vh;
 }
@@ -154,13 +155,15 @@ section {
     color: #3b82f6;
     border: 2px solid #3b82f6;
 }
+
 #createResumeButton,
 #printResumeBtn,
-#createNewResumeBtn{
+#createNewResumeBtn {
     padding: 0.6rem 1.2rem;
     color: #ffffff;
     background-color: #3b82f6;
 }
+
 #createResumeButton,
 #printResumeBtn,
 #createNewResumeBtn,
@@ -261,12 +264,13 @@ fieldset {
     position: relative;
     margin-top: 6px;
 }
-.capsule-faded-bottom{
+
+.capsule-faded-bottom {
     position: sticky;
     bottom: 0;
     width: 100%;
     height: 20px;
-    background: linear-gradient(transparent , white);
+    background: linear-gradient(transparent, white);
 }
 
 #skill-capsules-cont span,
@@ -428,24 +432,38 @@ img {
     font-size: 1.25rem;
     font-weight: 600;
 }
-#editNprintBtn-boxToHide{
+
+#editNprintBtn-boxToHide {
     width: 100%;
     display: flex;
 }
-#editResumeBtn{
+
+#editResumeBtn {
     width: 50%;
     text-align: center;
 }
-#printResumeBtn{
+
+#printResumeBtn {
     width: 50%;
     text-align: center;
 }
-.resume-actions-bar{
+
+.resume-actions-bar {
     display: none;
-    width: 30%;
-    height: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
     background-color: #dbeafe;
-    padding: 3rem;
+    width: 80%;
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 18px rgb(207, 220, 240);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.resume-actions-bar::-webkit-scrollbar{
+    display: none;
 }
 
 .resume-section {
@@ -455,38 +473,45 @@ img {
     align-items: center;
     padding: 12px;
 }
-.created-resume-list{
+
+.created-resume-list {
     margin: 1.5rem 0;
     overflow-y: scroll;
 }
+
 .created-resume-list::-webkit-scrollbar {
     display: none;
 }
-.created-resume-list .res-cards{
+
+.created-resume-list .res-cards {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #b3d2fa;
 }
-.created-resume-list .res-cards div{
+
+.created-resume-list .res-cards div {
     gap: 1rem;
     display: flex;
     align-items: center;
 }
+
 .created-resume-list .imgBox {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
 }
+
 fieldset {
     border: none;
     padding: 0;
     margin: 0;
     box-shadow: none;
 }
-.limit-error-box{
+
+.limit-error-box {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -499,10 +524,40 @@ fieldset {
     animation: fade-out 2.1s ease-in;
 }
 
+.resume-actionBar-toggle-forMobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    background: #3776ff;
+    border-radius: 100%;
+}
+.notification::after{
+    content: "1";
+    position: absolute;
+    top: -4px;
+    background-color: red;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 @keyframes fade-out {
-    50%{
+    50% {
         opacity: 1;
-    }100%{
+    }
+
+    100% {
         opacity: 0;
     }
 }
@@ -522,6 +577,13 @@ fieldset {
 
     .resume-actions-bar {
         display: block;
+        position: static;
+        transform: none;
+        width: 30%;
+        height: 100%;
+        border-radius: 0;
+        background-color: #dbeafe;
+        padding: 3rem;
     }
 
     #print-content {
@@ -530,6 +592,10 @@ fieldset {
 
     form {
         width: 80%;
+    }
+
+    .resume-actionBar-toggle-forMobile {
+        display: none;
     }
 }
 
