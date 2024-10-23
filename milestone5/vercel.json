@@ -1,13 +1,12 @@
 {
-    "public": "src/public",
     "rewrites": [
       {
         "source": "/",
-        "destination": "/index.html"
+        "destination": "/src/index.html"
       },
       {
         "source": "/view-resume",
-        "destination": "/share/view-resume.html"
+        "destination": "/src/share/view-resume.html"
       }
     ],
     "builds": [
@@ -21,6 +20,10 @@
       },
       {
         "src": "src/**/*.js",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "src/public/**/*",
         "use": "@vercel/static"
       }
     ]
