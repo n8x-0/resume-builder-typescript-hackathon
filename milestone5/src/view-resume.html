@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../public/n8xLogo.png" type="image/x-icon">
+    <style>
+        @media print {
+            footer,
+            footer *{
+                display: none !important;
+            }
+        }
+        footer {
+            width: 100%;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button,
+        a {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover,
+        a:hover {
+            background-color: #0056b3;
+        }
+        footer div {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 640px) {
+            footer div {
+                width: 40%;
+            }
+        }
+    </style>
+    <title>Print Resume | n8x resume builder</title>
+</head>
+
+<body style="display: flex; justify-content: center; align-items: center;">
+    <section>
+        <div id="print-content" style="width: 100%;">
+            <div id="editPreview">
+                <div class="resume-intro">
+                    <div>
+                        <h1 id="print-username"></h1>
+                        <div class="contact">
+                            <b>Contact:</b>
+                            <span id="print-contact"></span>
+                        </div>
+                        <div class="email">
+                            <b>Email:</b>
+                            <span id="print-email"></span>
+                        </div>
+                    </div>
+                    <div class="imgBox" id="print-image-cont">
+                    </div>
+                </div>
+                <div class="resume-details">
+                    <div class="legend">
+                        <h2>Objective:</h2>
+                        <hr>
+                    </div>
+                    <p id="print-objective"></p>
+
+                    <div class="legend">
+                        <h2>Skills:</h2>
+                        <hr>
+                    </div>
+                    <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                        <ul id="print-skills-list"></ul>
+                    </div>
+
+                    <div class="legend">
+                        <h2>Experience:</h2>
+                        <hr>
+                    </div>
+                    <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                        <ul id="print-exp-list"></ul>
+                    </div>
+                    <div class="legend">
+                        <h2>Education:</h2>
+                        <hr>
+                    </div>
+                    <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                        <ul id="print-edu-list"></ul>
+                    </div>
+
+                    <div class="legend">
+                        <h2>Summary:</h2>
+                        <hr>
+                    </div>
+                    <p id="print-summary"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div>
+            <button onclick="window.print()">Print Resume</button>
+            <a href="index.html">Visit Resume Builder</a>
+        </div>
+    </footer>
+    <script>
+        function decodeResumeData() {
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const encodedData = urlParams.get('data');
+
+            if (encodedData) {
+                try {
+                    const decodedData = JSON.parse(atob(decodeURIComponent(encodedData)));
+
+                    document.getElementById('print-username').innerHTML = decodedData.username;
+                    document.getElementById('print-contact').innerHTML = decodedData.contact;
+                    document.getElementById('print-email').innerHTML = decodedData.email;
+                    document.getElementById('print-objective').innerHTML = decodedData.objective;
+                    document.getElementById('print-skills-list').innerHTML = decodedData.skills.map((data) => `<li>${data}</li>`);
+                    document.getElementById('print-exp-list').innerHTML = decodedData.experience.map((data) => `<li>${data}</li>`);
+                    document.getElementById('print-edu-list').innerHTML = decodedData.education.map((data) => `<li>${data}</li>`);
+                    document.getElementById('print-summary').innerHTML = decodedData.summary;
+
+                } catch (error) {
+                    console.error("Error decoding resume data:", error);
+                    alert("Invalid resume data.");
+                }
+            } else {
+                alert("No resume data found.");
+            }
+        }
+
+        window.onload = decodeResumeData;
+    </script>
+</body>
+
+</html>

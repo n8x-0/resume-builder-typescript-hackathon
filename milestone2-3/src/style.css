@@ -1,0 +1,672 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+@font-face {
+    font-family: saudagar;
+    src: url(../public/Saudagar.ttf);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* print settings  */
+
+@media print {
+    #editPreview {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    #print-content {
+        width: 100% !important;
+    }
+
+    .section-one,
+    .section-one *,
+    #input-resume-data,
+    #input-resume-data *,
+    header,
+    header *,
+    .resume-actions-bar,
+    .resume-actions-bar * {
+        display: none !important;
+    }
+}
+
+/* custom scrollbar  */
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5b98fc;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7cacf8;
+}
+
+/* styles */
+
+.main {
+    width: 100%;
+    position: relative;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+}
+
+.header-title {
+    width: fit-content;
+    font-family: saudagar;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.header-nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+section {
+    position: relative;
+}
+
+.section-one {
+    width: 100%;
+    height: 100vh;
+}
+
+.inputsSection {
+    position: absolute;
+    top: 20%;
+    text-align: center;
+    width: 100%;
+    height: fit-content;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 3rem;
+    color: #3b82f6;
+    font-weight: 100;
+    letter-spacing: -0.015em;
+}
+
+.inputsSection h1 {
+    font-size: 3rem;
+    line-height: 2.25rem;
+    font-weight: 200;
+}
+
+.inputsSection b {
+    font-weight: 600;
+}
+
+.inputsSection i {
+    color: #334155;
+}
+
+.actions {
+    position: absolute;
+    top: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.015em;
+}
+
+#viewResumeButton,
+#editResumeBtn {
+    padding: 0.5rem 1.2rem;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+}
+
+#createResumeButton,
+#printResumeBtn,
+#createNewResumeBtn {
+    padding: 0.6rem 1.2rem;
+    color: #ffffff;
+    background-color: #3b82f6;
+}
+
+#createResumeButton,
+#printResumeBtn,
+#createNewResumeBtn,
+#viewResumeButton,
+#editResumeBtn {
+    border-radius: 9999px;
+    text-decoration: none;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.inputSectionContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 12px;
+}
+
+.inputSectionContainer .inputElementsBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+legend {
+    font-size: 1.875rem;
+    letter-spacing: -0.015em;
+    font-weight: 200;
+    margin-top: 1rem;
+}
+
+input,
+textarea {
+    background-color: #DBEAFE;
+    color: #3b82f6;
+    border-radius: 0.375rem;
+    padding: 0.6rem 0.75rem;
+    margin: 0.25rem 0;
+    width: 100%;
+    border: none;
+}
+
+textarea {
+    resize: none;
+}
+
+
+input[name="skill"],
+input[name="experience"],
+input[name="education"] {
+    width: 80%;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+    font-weight: 400;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#imageInput {
+    display: block;
+}
+
+#add-skills-btn,
+#add-exp-btn,
+#add-edu-btn {
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+form {
+    width: 100%;
+}
+
+fieldset {
+    width: 100%;
+}
+
+#skill-capsules-cont,
+#exp-capsules-cont,
+#edu-capsules-cont {
+    display: flex;
+    flex-wrap: wrap;
+    width: 94%;
+    max-height: 90px;
+    overflow-y: scroll;
+    position: relative;
+    margin-top: 6px;
+}
+
+.capsule-faded-bottom {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(transparent, white);
+}
+
+#skill-capsules-cont span,
+#exp-capsules-cont span,
+#edu-capsules-cont span {
+    padding: 8px 12px;
+    background-color: #60a5fa;
+    border-radius: 9999px;
+    color: #ffffff;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.generateBtn {
+    width: 100%;
+    background-color: #3b82f6;
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    cursor: pointer;
+}
+
+.profileAndInfoBar {
+    width: 30%;
+    background-color: #dbeafe;
+    padding: 3rem;
+    display: none;
+}
+
+.inps-section-img-box {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: auto;
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileAndInfoBar h1 {
+    text-align: center;
+    color: #3b82f6;
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: -0.015em;
+    line-height: 1.25rem;
+    margin-top: 0.75rem;
+}
+
+.profileAndInfoBar ul {
+    margin-top: 1rem;
+    list-style-type: disc;
+    color: #374151;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    line-height: 1.25rem;
+}
+
+#print-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#editPreview {
+    width: 100%;
+}
+
+.resume-intro {
+    width: 100%;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resume-intro div h1 {
+    font-size: 3rem;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 2.3rem;
+}
+
+.resume-intro .contact,
+.resume-intro .email {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    color: #0e7490;
+    font-size: 1.25rem;
+}
+
+.resume-intro .imgBox {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.resume-details h2 {
+    font-size: 1.875rem;
+    font-weight: 500;
+    letter-spacing: -0.035rem;
+    color: #393f47;
+}
+
+.resume-details hr {
+    border-width: 2px;
+    width: 100%;
+    margin-left: 0.5rem;
+    margin-right: 2.5rem;
+    margin-top: 0.5rem;
+    border-radius: 9999px;
+}
+
+.resume-details ul {
+    color: #374151;
+    line-height: 1.25rem;
+    list-style-type: disc;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.resume-details li {
+    margin: 0 1.5rem
+}
+
+.resume-details .legend {
+    display: flex;
+    align-items: center;
+    margin-top: 1.25rem;
+}
+
+.resume-details p {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    color: #374151;
+    line-height: 1.25rem;
+}
+
+#editPrintBtnCont {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+#editNprintBtn-boxToHide {
+    width: 100%;
+    display: flex;
+}
+
+#editResumeBtn {
+    width: 50%;
+    text-align: center;
+}
+
+#printResumeBtn {
+    width: 50%;
+    text-align: center;
+}
+
+.resume-actions-bar {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    background-color: #dbeafe;
+    width: 80%;
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 18px rgb(207, 220, 240);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.resume-actions-bar::-webkit-scrollbar{
+    display: none;
+}
+
+.resume-section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+}
+
+.created-resume-list {
+    margin: 1.5rem 0;
+    overflow-y: scroll;
+}
+
+.created-resume-list::-webkit-scrollbar {
+    display: none;
+}
+
+.created-resume-list .res-cards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #b3d2fa;
+}
+
+.created-resume-list .res-cards div {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.created-resume-list .imgBox {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+.limit-error-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 18px;
+    color: white;
+    border-radius: 9999px;
+    background: #5e5e5e;
+    display: none;
+    animation: fade-out 2.1s ease-in;
+}
+
+.resume-actionBar-toggle-forMobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    background: #3776ff;
+    border-radius: 100%;
+}
+.notification::after{
+    content: "1";
+    position: absolute;
+    top: -4px;
+    background-color: red;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+@keyframes fade-out {
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .inputSectionContainer .inputElementsBox {
+        width: 60%;
+    }
+
+    .profileAndInfoBar {
+        display: block;
+    }
+
+    #editPreview {
+        width: 60%;
+    }
+
+    .resume-actions-bar {
+        display: block;
+        position: static;
+        transform: none;
+        width: 30%;
+        height: 100%;
+        border-radius: 0;
+        background-color: #dbeafe;
+        padding: 3rem;
+    }
+
+    #print-content {
+        width: 60%;
+    }
+
+    form {
+        width: 80%;
+    }
+
+    .resume-actionBar-toggle-forMobile {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .custom-container {
+        width: 36rem;
+    }
+
+    .generateBtn,
+    input,
+    textarea {
+        width: 95%;
+    }
+
+    #editPreview {
+        width: 80%;
+    }
+
+    form {
+        width: 60%;
+    }
+}
+
+@media (min-width: 640px) {
+    .inputsSection {
+        font-size: 5rem;
+        text-align: left;
+        width: fit-content;
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+    .inputsSection h1 {
+        font-size: 5rem;
+        line-height: 4rem;
+    }
+
+    #imageInput {
+        display: none;
+    }
+
+    .actions {
+        font-size: 1.5rem;
+    }
+
+    #viewResumeButton,
+    #editResumeBtn {
+        padding: 0.75rem 2rem;
+        margin: 4px;
+    }
+
+    #createResumeButton,
+    #printResumeBtn,
+    #createNewResumeBtn {
+        padding: 0.9rem 2rem;
+        margin: 4px;
+    }
+
+    header {
+        padding: 1.25rem 2.5rem;
+    }
+
+    .header-title {
+        font-size: 2.25rem;
+    }
+
+    #editPrintBtnCont {
+        gap: 0.5rem
+    }
+
+    #editPreview {
+        width: 590px;
+    }
+}

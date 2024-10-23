@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="../public/n8xLogo.png" type="image/x-icon">
+    <title>n8x resume builder</title>
+</head>
+
+<body>
+    <div class="main">
+        <header>
+            <h1 class="header-title">n8x</h1>
+            <div class="header-nav">
+                <a href="https://github.com/n8x-0/n8x-0">Github</a>
+                <a href="https://www.linkedin.com/in/syed-shayan-3a48202b3/">LInkedIn</a>
+                <a href="https://n8x-dev-portfolio.web.app/">Portfolio</a>
+            </div>
+        </header>
+        <section class="section-one">
+            <div class="vdo-shader"></div>
+            <div class="page-one-vdo-cont">
+                <video src="https://videos.pexels.com/video-files/4377755/4377755-uhd_2560_1440_24fps.mp4" loop autoplay
+                    muted class="page-one-vdo" crossorigin="anonymous"></video>
+            </div>
+            <div class="introduction">
+                <h5>ONLINE RESUME BUILDER</h5>
+                <h1>
+                    Only 2% of resumes make it past the<br /> first round. Be in the top 2%
+                </h1>
+
+                <div id="loop">
+                    <div class="inner-loop">
+                        <h1>&nbsp;creating resumes, made easier. 1000+ people generated their resumes.</h1>
+                        <h1>&nbsp;creating resumes, made easier. 1000+ people generated their resumes.</h1>
+                    </div>
+                </div>
+
+            </div>
+            <div class="actions">
+                <a id="viewResumeButton">View Resume</a>
+                <a id="createResumeButton" href="#input-resume-data">Create Resume</a>
+            </div>
+        </section>
+
+        <section id="input-resume-data">
+            <div class="inputSectionContainer">
+                <div class="inputElementsBox">
+                    <form action="" class="lg:p-12 p-3" id="createResumeForm" autocomplete="on">
+                        <fieldset>
+                            <legend>Personal Information:<span style="color: #bd0000; font-size: 20px;">*</span></legend>
+                            <div class="username-contact-inp-box">
+                                <input type="text" name="username" required placeholder="Your name">
+                                <input type="number" name="contact" required placeholder="Phone no.">
+                            </div>
+                            <input type="email" name="email" required placeholder="Email">
+                            <input type="file" class="sm:hidden block" name="profileImage" id="imageInput"
+                                value="select an image">
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Objective:<span style="color: #bd0000; font-size: 20px;">*</span></legend>
+                            <textarea name="objective" required placeholder="Your objective for the resume"></textarea>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Skills:</legend>
+                            <input type="text" name="skill" id="addSkillsInp" placeholder="Add Skill">
+                            <span id="add-skills-btn">Add</span>
+                            <div class="skillsErrorBox"></div>
+                            <div id="skill-capsules-cont"></div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Experience:</legend>
+                            <input type="text" name="experience" id="addExpInp" class="" placeholder="Add Experience">
+                            <span id="add-exp-btn">Add</span>
+                            <div class="expErrorBox"></div>
+                            <div id="exp-capsules-cont"></div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Education:</legend>
+                            <input type="text" name="education" id="addEduInp" class="" placeholder="Add Education">
+                            <span id="add-edu-btn">Add</span>
+                            <div class="eduErrorBox"></div>
+                            <div id="edu-capsules-cont"></div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Summary:<span style="color: #bd0000; font-size: 20px;">*</span></legend>
+                            <textarea name="summary" required placeholder="Summarize your approach"></textarea>
+                        </fieldset>
+
+                        <input type="submit" value="Generate" class="generateBtn">
+                    </form>
+                </div>
+                <div class="profileAndInfoBar">
+                    <div id="imagePreview" class="inps-section-img-box">
+                        <img style="opacity: 0.4;"
+                            src="https://i.pinimg.com/736x/58/51/2e/58512eb4e598b5ea4e2414e3c115bef9.jpg" alt="">
+                    </div>
+                    <h1>Choose an image<br> (optional)</h1>
+                    <ul>
+                        <li>Generate resume once and you can print it later any time</li>
+                        <li>Regenrating resume with other input data will remove old data and new resume data will be
+                            stored to print</li>
+                        <li>Six resumes are allowed to keep, if you reached the limit delete some, or edit the old one.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="mid-section" style="display: flex; justify-content: center;">
+            <hr width="80%" style="border-top: 0.5px solid #c3c3c3;">
+        </div>
+
+        <section class="resume-section">
+            <div id="print-content">
+                <div id="editPreview">
+                    <div class="resume-intro">
+                        <div>
+                            <h1 id="print-username"></h1>
+                            <div class="contact">
+                                <b>Contact:</b>
+                                <span id="print-contact"></span>
+                            </div>
+                            <div class="email">
+                                <b>Email:</b>
+                                <span id="print-email"></span>
+                            </div>
+                        </div>
+                        <div class="imgBox" id="print-image-cont">
+                        </div>
+                    </div>
+                    <div class="resume-details">
+                        <div class="legend">
+                            <h2>Objective:</h2>
+                            <h r>
+                        </div>
+                        <p id="print-objective"></p>
+
+                        <div class="legend">
+                            <h2>Skills:</h2>
+                            <hr>
+                        </div>
+                        <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                            <ul id="print-skills-list"></ul>
+                        </div>
+
+                        <div class="legend">
+                            <h2>Experience:</h2>
+                            <hr>
+                        </div>
+                        <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                            <ul id="print-exp-list"></ul>
+                        </div>
+                        <div class="legend">
+                            <h2>Education:</h2>
+                            <hr>
+                        </div>
+                        <div style="margin: 0.5rem 0; padding: 0 0.75rem">
+                            <ul id="print-edu-list"></ul>
+                        </div>
+
+                        <div class="legend">
+                            <h2>Summary:</h2>
+                            <hr>
+                        </div>
+                        <p id="print-summary"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="resume-actions-bar">
+                <div id="editPrintBtnCont">
+                    <div id="editNprintBtn-boxToHide">
+                        <div id="editResumeBtn">Edit</div>
+                        <div id="printResumeBtn">Print</div>
+                    </div>
+                    <div id="createNewResumeBtn">Create New</div>
+                </div>
+                <div class="created-resume-list"></div>
+            </div>
+            <div class="resume-actionBar-toggle-forMobile">
+                <i class="fa-solid fa-gear" style="color: #FFFFFF"></i>
+            </div>
+        </section>
+
+        <div class="limit-error-box">Resumes limit reached, delete or edit old resumes</div>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-branding">
+                    <h2>Resume Builder</h2>
+                    <p>Build professional resumes effortlessly.</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="#about">About Us</a>
+                    <a href="#services">Services</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#privacy">Privacy Policy</a>
+                </div>
+
+                <div class="footer-social">
+                    <a href="https://github.com/n8x-0/n8x-0" aria-label="github"><img
+                            src="https://img.icons8.com/?size=100&id=LoL4bFzqmAa0&format=png&color=000000"
+                            alt="github"></a>
+                    <a href="https://www.linkedin.com/in/syed-shayan-3a48202b3/" aria-label="linkedin"><img
+                            src="https://img.icons8.com/?size=100&id=MR3dZdlA53te&format=png&color=000000"
+                            alt="linkedin"></a>
+                    <a href="https://www.youtube.com/@n8xeditz561" aria-label="youtube"><img
+                            src="https://img.icons8.com/?size=100&id=qLVB1tIe9Ts9&format=png&color=000000"
+                            alt="youtube"></a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Resume Builder. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="./app.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@beta/bundled/locomotive-scroll.min.js"></script>
+    <script>
+        (function () {
+            const locomotiveScroll = new LocomotiveScroll();
+        })();
+    </script>
+
+</body>
+
+</html>
