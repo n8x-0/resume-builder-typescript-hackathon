@@ -20,7 +20,7 @@ body {
 
 @font-face {
     font-family: saudagar;
-    src: url(public/Saudagar.ttf);
+    src: url(Saudagar.ttf);
 }
 
 input[type="number"]::-webkit-outer-spin-button,
