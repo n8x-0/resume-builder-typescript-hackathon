@@ -8,24 +8,6 @@
         "source": "/view-resume",
         "destination": "/src/share/view-resume.html"
       }
-    ],
-    "builds": [
-      {
-        "src": "src/**/*.html",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "src/**/*.css",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "src/**/*.js",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "src/public/**/*",
-        "use": "@vercel/static"
-      }
     ]
   }
   
