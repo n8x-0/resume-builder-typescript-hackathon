@@ -262,7 +262,7 @@ updateData()
 const shareableLink = (cvData: CVdata): string => {
     const serializedData = JSON.stringify(cvData);
     const encodedData = encodeURIComponent(btoa(serializedData));
-    const link = `https://resume-builder-2-orcin.vercel.app/view-resume.html?data=${encodedData}`;
+    const link = `https://resume-builder-2-hackathon.vercel.app/view-resume.html?data=${encodedData}`;
     return link;
 }
 
