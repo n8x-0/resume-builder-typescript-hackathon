@@ -368,7 +368,7 @@ textarea {
     background-color: var(--widgets-bg);
     color: var(--base-text-color);
     border-radius: 0.375rem;
-    padding: 1rem 0.75rem;
+    padding: 0.7rem 0.7rem;
     margin: 0.25rem 0;
     width: 100%;
     border: none;
@@ -383,7 +383,7 @@ textarea {
 input[name="skill"],
 input[name="experience"],
 input[name="education"] {
-    width: 85%;
+    width: 80%;
 }
 
 input:focus,
@@ -404,7 +404,7 @@ textarea::placeholder {
 #add-skills-btn,
 #add-exp-btn,
 #add-edu-btn {
-    padding: 0.8rem 1rem;
+    padding: 0.5rem 0.9rem;
     background-color: var(--theme-cyan-bg);
     color: #ffffff;
     border-radius: 0.375rem;
@@ -520,6 +520,7 @@ img {
 }
 
 #editPreview {
+    font-size: small;
     width: 100%;
 }
 
@@ -588,6 +589,7 @@ img {
     display: flex;
     align-items: center;
     margin-top: 1.25rem;
+    letter-spacing: -2px;
 }
 
 .resume-details p {
@@ -649,7 +651,7 @@ img {
 }
 
 #input-resume-data {
-    padding: 3rem 0;
+    padding: 7rem 0 5rem 0;
 }
 
 .created-resume-list {
@@ -878,10 +880,16 @@ footer {
         width: 36rem;
     }
 
-    .generateBtn,
     input,
     textarea {
+        padding: 1rem 0.75rem;
         width: 100%;
+    }
+
+    #add-skills-btn,
+    #add-exp-btn,
+    #add-edu-btn {
+        padding: 0.8rem 1rem;
     }
 
     #editPreview {
@@ -944,6 +952,5 @@ footer {
 
     #editPreview {
         width: 590px;
-        font-size: small;
     }
 }
