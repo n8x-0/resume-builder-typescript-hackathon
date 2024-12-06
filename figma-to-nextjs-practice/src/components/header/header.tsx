@@ -10,7 +10,7 @@ const Header = () => {
                 <Link href="/" className='text-base hover:border-b-2 border-zinc-300'>Home</Link>
                 <Link href="" className='text-base hover:border-b-2 border-zinc-300'>Contact</Link>
                 <Link href="" className='text-base hover:border-b-2 border-zinc-300'>About</Link>
-                <Link href="" className='text-base hover:border-b-2 border-zinc-300'>Sign Up</Link>
+                <Link href="/signup" className='text-base hover:border-b-2 border-zinc-300'>Sign Up</Link>
             </div>
             <div className='flex justify-center items-center gap-6'>
                 <div className='relative xs:block hidden'>
