@@ -14,7 +14,7 @@ const SignUpPage = () => {
                     <form action="" className="space-y-7 mt-10">
                         <input type="text" name="name" placeholder="Name" className="w-full bg-none border-b border-zinc-400 py-2 focus:outline-none placeholder:text-zinc-400 placeholder:text-lg" />
                         <input type="text" name="emailorphone" placeholder="Email or Phone Number" className="w-full bg-none border-b border-zinc-400 py-2 focus:outline-none placeholder:text-zinc-400 placeholder:text-lg" />
-                        <input type="text" name="password" placeholder="Password" className="w-full bg-none border-b border-zinc-400 py-2 focus:outline-none placeholder:text-zinc-400 placeholder:text-lg" />
+                        <input type="password" name="password" placeholder="Password" className="w-full bg-none border-b border-zinc-400 py-2 focus:outline-none placeholder:text-zinc-400 placeholder:text-lg" />
                         <input type="submit" value="Create Account" className="font-medium w-full bg-primRed text-white py-3 rounded-md" />
                     </form>
                     <div className="bg-white border-[1px] border-zinc-400 px-4 py-3 rounded-lg font-medium text-center flex items-center justify-center gap-3 mt-3">
