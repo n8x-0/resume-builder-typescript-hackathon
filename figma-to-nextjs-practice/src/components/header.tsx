@@ -8,8 +8,8 @@ const Header = () => {
             <h1 className='sm:text-3xl text-xl font-bold'>Exclusive</h1>
             <div className='hidden md:flex gap-6 items-center w-fit'>
                 <Link href="/" className='text-base hover:border-b-2 border-zinc-300'>Home</Link>
-                <Link href="" className='text-base hover:border-b-2 border-zinc-300'>Contact</Link>
-                <Link href="" className='text-base hover:border-b-2 border-zinc-300'>About</Link>
+                <Link href="/contact" className='text-base hover:border-b-2 border-zinc-300'>Contact</Link>
+                <Link href="/about" className='text-base hover:border-b-2 border-zinc-300'>About</Link>
                 <Link href="/signup" className='text-base hover:border-b-2 border-zinc-300'>Sign Up</Link>
             </div>
             <div className='flex justify-center items-center gap-6'>
